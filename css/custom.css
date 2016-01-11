@@ -82,4 +82,22 @@ div.main-container div.main div.content.alphabet div.quiz.interface input.button
 div.main-container div.main div.content.alphabet div.quiz.interface input.buttond{
 	margin-left:10px;
 }
+
+div#quiz div.box table{
+    width: 100%;
+}
+
+div#quiz div.box table tr:last-child td{
+    text-align: center;
+}
+
+div#quiz div.interface input.question{
+    width:50px;
+}
+
+div#quiz div.interface input.correct,
+div#quiz div.interface input.wrong{
+    width:50px;
+}
+
 /*************************/

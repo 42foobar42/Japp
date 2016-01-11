@@ -1,0 +1,14 @@
+@media only screen and (max-device-width:360px) and (orientation:portrait) {
+    div,p,html{
+        font-size: 15px;
+    }
+    div#quiz input.countofquestions{
+        width: 50px;
+    }
+    div#quiz div.area p{
+        text-align: center;
+    }
+    div#quiz div.menu{
+        text-align: center;
+    }
+}
