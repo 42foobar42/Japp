@@ -1,0 +1,85 @@
+div.main-container div.main div.content.alphabet div.quiz.interface p.actual.letter, 
+div.main-container div.main.wrapper.clearfix div.content.alphabet table.hiragana span.hiragana {
+	font-size:120%;
+	font-weight: bolder;
+	margin-left: 3px;
+}
+
+div.main-container div.main.wrapper.clearfix div.content.alphabet table.hiragana span.latin  {
+}
+div.main-container div.main.wrapper.clearfix div.content.alphabet table.hiragana td {
+	vertical-align: middle;
+}
+
+/*** Quizzbox Menu at alphabet Site ***/
+div.main-container div.main div.content.alphabet div.quiz.box{
+	border: black solid 2px;
+	width:200px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.box table td{
+	text-align: center;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.box input.countofquestions{
+	width:30px;
+	
+}
+/*************************************/
+
+/*** Quizzbox In Quizz ***/
+div.main-container div.main div.content.alphabet div.quiz.interface.hide{
+	display:none;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface {
+	width:100%;
+	text-algin: center;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface input.all.question,
+div.main-container div.main div.content.alphabet div.quiz.interface input.current.question{
+	width: 30px;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface input.correct,
+div.main-container div.main div.content.alphabet div.quiz.interface input.wrong {
+	width:20px;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface input.actual.guess{
+	width:50px;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface div.menu{
+	float:left;
+	border-right: dashed black 1px;
+	margin-right:5px;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface div.area{
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface input.correct.green{
+	background-color: green;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface input.wrong.red{
+	background-color: red;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface div.menu p {
+	margin:3px;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface input.quizzbuttonchoice {
+	width:50px;
+}
+
+div.main-container div.main div.content.alphabet div.quiz.interface input.buttonb,
+div.main-container div.main div.content.alphabet div.quiz.interface input.buttond{
+	margin-left:10px;
+}
+/*************************/
