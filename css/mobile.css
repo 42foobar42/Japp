@@ -1,4 +1,4 @@
-@media only screen and (max-device-width:360px) and (orientation:portrait) {
+@media only screen and (max-device-width:360px) /*and (orientation:portrait)*/ {
     div,p,html{
         font-size: 15px;
     }
