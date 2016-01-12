@@ -32,10 +32,30 @@ var quiz = (function (win) {
         $(CONST_INTERFACE_DOM + " input.correct").removeClass("green");
         $(CONST_INTERFACE_DOM + " input.wrong").removeClass("red");
     }
+    function setButtonOpportunities(letter) {
+        var choices = new Array(4), random, tempLetter;
+        var foundKeys = Object.keys(AllowedLettersForQuizz).filter(function (key) {
+            return AllowedLettersForQuizz[key] == letter;
+        });
+        choices[Math.floor(Math.random() * choices.length)] = foundKeys.toString();
+        for (var i = 0; i < choices.length; ++i) {
+            if (typeof choices[i] === "undefined") {
+                do {
+                    random = Math.floor(Math.random() * AllowedLatinLettersForQuizz.length);
+                    tempLetter = AllowedLatinLettersForQuizz[random];
+                } while (choices.indexOf(tempLetter) >= 0);
+                choices[i] = tempLetter;
+            }
+        }
+        $(CONST_INTERFACE_DOM + " div.button input.buttona").val(choices[0]);
+        $(CONST_INTERFACE_DOM + " div.button input.buttonb").val(choices[1]);
+        $(CONST_INTERFACE_DOM + " div.button input.buttonc").val(choices[2]);
+        $(CONST_INTERFACE_DOM + " div.button input.buttond").val(choices[3]);
+    }
     function setUpArea() {
         $("div#quiz div.box").hide();
         $(CONST_INTERFACE_DOM + "").show();
-        if ($("div.main-container div.content.alphabet input.showbuttonchoice").is(":checked")) {
+        if ($("div#quiz input.showbuttonchoice").is(":checked")) {
             $(CONST_INTERFACE_DOM + " p.nobutton").hide();
             $(CONST_INTERFACE_DOM + " div.button").show();
         } else {
@@ -46,6 +66,7 @@ var quiz = (function (win) {
         CountLatinLettersForQuizz[letter]++;
         lastLetter = letter;
         $(CONST_INTERFACE_DOM + " p.actual.letter").text(AllowedLettersForQuizz[letter]);
+        setButtonOpportunities(AllowedLettersForQuizz[letter]);
         setStartValues();
     }
     function setLetters(qrHi) {
@@ -106,8 +127,9 @@ var quiz = (function (win) {
     }
     function getNewLetterForQuizz() {
         var questionNo = $(CONST_INTERFACE_DOM + " input.current.question").val();
-        var letter;
+        var letter, counter = 0;
         do {
+            counter++;
             var randomNo = Math.floor(Math.random() * AllowedLatinLettersForQuizz.length);
             letter = AllowedLatinLettersForQuizz[randomNo];
             while (CountLatinLettersForQuizz[letter] > parseInt(questionNo) / numberOfQuestion * AllowedLatinLettersForQuizz.length) {
@@ -123,18 +145,18 @@ var quiz = (function (win) {
         lastLetter = letter;
         return  AllowedLettersForQuizz[letter];
     }
-    function progressQuiz() {
-        var actualLetter = $(CONST_INTERFACE_DOM + " p.actual.letter").text();
-        var guesLetter = $(CONST_INTERFACE_DOM + " input.actual.guess").val().toLowerCase();
+    function progressQuiz(actualLetter, guesLetter) {
         checkQuizzLetter(actualLetter, guesLetter);
-        var questionNo = $(CONST_INTERFACE_DOM + " input.current.question").val();
+        var questionNo = $(CONST_INTERFACE_DOM + " input.current.question").val(), letter;
         if (parseInt(questionNo) == parseInt(numberOfQuestion)) {
             endQuiz();
         } else {
             questionNo++;
             $(CONST_INTERFACE_DOM + " input.current.question").val(questionNo);
             $(CONST_INTERFACE_DOM + " input.actual.guess").val("");
-            $(CONST_INTERFACE_DOM + "  p.actual.letter").text(getNewLetterForQuizz());
+            letter = getNewLetterForQuizz();
+            $(CONST_INTERFACE_DOM + "  p.actual.letter").text(letter);
+            setButtonOpportunities(letter);
         }
     }
     function buttonControls() {
@@ -144,25 +166,34 @@ var quiz = (function (win) {
         });
         $('div#quiz div.interface input.actual.guess').keyup(function (event) {
             if (event.which == 13 && running == true) {
-                progressQuiz();
-
+                var actualLetter = $(CONST_INTERFACE_DOM + " p.actual.letter").text();
+                var guesLetter = $(CONST_INTERFACE_DOM + " input.actual.guess").val().toLowerCase();
+                progressQuiz(actualLetter, guesLetter);
             }
         });
         $(CONST_INTERFACE_DOM + " input.restart.game").click(function () {
             for (var i = 0; i < AllowedLatinLettersForQuizz.length; i++) {
                 CountLatinLettersForQuizz[AllowedLatinLettersForQuizz[i]] = 0;
             }
-            running=true;
+            running = true;
             setUpArea();
         });
         $(CONST_INTERFACE_DOM + " input.cancel.game").click(function () {
             running = false;
-            $( "div#quiz div.interface").hide();
-            $( "div#quiz div.box").show();
+            $("div#quiz div.interface").hide();
+            $("div#quiz div.box").show();
+        });
+        $(CONST_INTERFACE_DOM + " div.button input.quizzbuttonchoice").click(function () {
+            var actualLetter = $(CONST_INTERFACE_DOM + " p.actual.letter").text();
+            var guesLetter = $(this).val();
+            progressQuiz(actualLetter, guesLetter);
+            //getNewLetterForQuizz();
+            //makeButtonOpportunities($(CONST_INTERFACE_DOM + " p.actual.letter").text());
         });
     }
     function startUp() {
         $(CONST_INTERFACE_DOM + "").hide();
+        $("div#quiz div.box").show();
         if (!contolsSet) {
             buttonControls();
             contolsSet = true;
@@ -171,7 +202,7 @@ var quiz = (function (win) {
     return {
         init: function () {
             if (running) {
-
+                $(CONST_INTERFACE_DOM).show();
             } else {
                 startUp();
             }

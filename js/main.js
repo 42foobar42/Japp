@@ -45,7 +45,7 @@ function makeQuizArea(){
 }
 
 function makeButtonOpportunities(letter){
-	var choices = new Array(4);
+	var choices = new Array(4), tempLetter, random;
 	foundKeys = Object.keys(AllowedLettersForQuizz).filter(function(key) {
 		return AllowedLettersForQuizz[key] == letter;
 	});
