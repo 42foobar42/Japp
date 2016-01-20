@@ -33,12 +33,16 @@ var quiz = (function (win) {
         $(CONST_INTERFACE_DOM + " input.wrong").removeClass("red");
     }
     function setButtonOpportunities(letter) {
-        var choices = new Array(4), random, tempLetter;
+        var choices = new Array(4), random, tempLetter, length;
         var foundKeys = Object.keys(AllowedLettersForQuizz).filter(function (key) {
             return AllowedLettersForQuizz[key] == letter;
         });
-        choices[Math.floor(Math.random() * choices.length)] = foundKeys.toString();
-        for (var i = 0; i < choices.length; ++i) {
+        length =  choices.length;
+        if(length > AllowedLatinLettersForQuizz.length){
+            length = AllowedLatinLettersForQuizz.length;
+        }
+        choices[Math.floor(Math.random() * length)] = foundKeys.toString();       
+        for (var i = 0; i < length; ++i) {
             if (typeof choices[i] === "undefined") {
                 do {
                     random = Math.floor(Math.random() * AllowedLatinLettersForQuizz.length);
@@ -128,20 +132,18 @@ var quiz = (function (win) {
     function getNewLetterForQuizz() {
         var questionNo = $(CONST_INTERFACE_DOM + " input.current.question").val();
         var letter, counter = 0, copyAllowedLetters = JSON.parse(JSON.stringify(AllowedLatinLettersForQuizz));
-        console.log(copyAllowedLetters);
-        do {
-            counter++;
-            var randomNo = Math.floor(Math.random() * AllowedLatinLettersForQuizz.length);
-            letter = AllowedLatinLettersForQuizz[randomNo];
-            while (CountLatinLettersForQuizz[letter] > parseInt(questionNo) / numberOfQuestion * AllowedLatinLettersForQuizz.length) {
-                if (randomNo >= AllowedLatinLettersForQuizz.length - 1) {
-                    randomNo = 0;
-                } else {
-                    randomNo++;
-                }
-                letter = AllowedLatinLettersForQuizz[randomNo];
+        var index = copyAllowedLetters.indexOf(lastLetter);
+        delete(copyAllowedLetters[index]);
+        var randomNo = Math.floor(Math.random() * copyAllowedLetters.length);
+        letter = copyAllowedLetters[randomNo];
+        while(CountLatinLettersForQuizz[letter] > Math.ceil((parseInt(questionNo)/copyAllowedLetters.length)) ){
+            if(randomNo >= copyAllowedLetters.length ){
+                randomNo = 0;
+            } else {
+                randomNo++;
             }
-        } while (letter == lastLetter);
+            letter = copyAllowedLetters[randomNo];
+        }
         CountLatinLettersForQuizz[letter]++;
         lastLetter = letter;
         return  AllowedLettersForQuizz[letter];
