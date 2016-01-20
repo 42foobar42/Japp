@@ -1,9 +1,29 @@
 <div id="dictMenu">
     <p> Dictionary
         <select id="dictSelect">
-        </select>
+        </select> <input type="button" value="delete" id="deleteDictButton" />
     </p>
     <p>
         <input type="button" value="create" id="createDictButton"/>
     </p>
+</div>
+<div id="addWord">
+    <table>
+        
+        <tr>
+            <td>transcription</td>
+            <td>kana</td>
+            <td>kanji</td>
+            <td>translation</td>
+        </tr>
+        <tr>
+            <td><input type="text" /></td>
+            <td><input type="text" /></td>
+            <td><input type="text" /></td>
+            <td><input type="text" /></td>
+        </tr>
+        <tr>
+            <td colspan="4"><input type="button" value="add" id="addWord"/></td>
+        </tr>
+    </table>
 </div>

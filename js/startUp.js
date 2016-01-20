@@ -7,7 +7,7 @@ var config = {
             quiz.init()
         },
         dictionary: function(){
-            dictionary.init();m
+            dictionary.init();
         }
     }
 };
