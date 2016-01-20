@@ -5,6 +5,9 @@ var config = {
     menuFunctions: {
         quiz: function () {
             quiz.init()
+        },
+        dictionary: function(){
+            dictionary.init();m
         }
     }
 };

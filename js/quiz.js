@@ -127,7 +127,8 @@ var quiz = (function (win) {
     }
     function getNewLetterForQuizz() {
         var questionNo = $(CONST_INTERFACE_DOM + " input.current.question").val();
-        var letter, counter = 0;
+        var letter, counter = 0, copyAllowedLetters = JSON.parse(JSON.stringify(AllowedLatinLettersForQuizz));
+        console.log(copyAllowedLetters);
         do {
             counter++;
             var randomNo = Math.floor(Math.random() * AllowedLatinLettersForQuizz.length);
